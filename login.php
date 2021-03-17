@@ -1,10 +1,3 @@
-<?php
-//form: email and password
-//submit redirect to 'process_login.php'
-//process_login.php select from base user with that email and password
-//if we have such a user then redirect to 'index.php' else print error
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

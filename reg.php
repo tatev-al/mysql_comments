@@ -1,17 +1,3 @@
-<?php
-
-//user can login
-//then he can add comment
-//user without sign in can read comments
-
-//make pages for login and registration
-//reg: name, email, password (in reg.php) check if there already exists user with such email (print "exist") and then allow registration
-//insert it (create_user.php)
-//if registration is succesfull header('Location: login.php')
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
