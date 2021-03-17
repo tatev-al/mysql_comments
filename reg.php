@@ -1,3 +1,17 @@
+<?php
+
+//user can login
+//then he can add comment
+//user without sign in can read comments
+
+//make pages for login and registration
+//reg: name, email, password (in reg.php) check if there already exists user with such email (print "exist") and then allow registration
+//insert it (create_user.php)
+//if registration is succesfull header('Location: login.php')
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,13 +24,16 @@
 </head>
 
 <body>
-  <form method="POST" action="create_comment.php">
-    <label>Name: </label> <br>
-    <input type="text" name="name" placeholder="Name"> <br>
-    <label>Comment: </label> <br>
-    <textarea name="comment" cols="40" rows="7"></textarea> <br>
-    <input type="submit" name="done" value="Submit">
-  </form> 
+    <form method="POST" action="create_user.php">
+        <label>Name: </label> <br>
+        <input type="text" name="name" placeholder="Name"> <br>
+        <label>Email: </label> <br>
+        <input type="email" name="email" placeholder="Email"> <br>
+        <label>Password: </label> <br>
+        <input type="password" name="pass" placeholder="Password"> <br>
+        <input type="submit" name="done" value="Submit">
+    </form>
+
 </body>
 
 </html>

@@ -1,3 +1,10 @@
+<?php
+//form: email and password
+//submit redirect to 'process_login.php'
+//process_login.php select from base user with that email and password
+//if we have such a user then redirect to 'index.php' else print error
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,13 +17,14 @@
 </head>
 
 <body>
-  <form method="POST" action="create_comment.php">
-    <label>Name: </label> <br>
-    <input type="text" name="name" placeholder="Name"> <br>
-    <label>Comment: </label> <br>
-    <textarea name="comment" cols="40" rows="7"></textarea> <br>
-    <input type="submit" name="done" value="Submit">
-  </form> 
+    <form method="POST" action="process_login.php">
+        <label>Email: </label> <br>
+        <input type="email" name="email" placeholder="Email"> <br>
+        <label>Password: </label> <br>
+        <input type="password" name="pass" placeholder="Password"> <br>
+        <input type="submit" name="done" value="Submit">
+    </form>
+
 </body>
 
 </html>
