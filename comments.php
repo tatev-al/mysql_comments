@@ -9,7 +9,7 @@ if($connection == false)
     exit();
 }
 
-$result = mysqli_query($connection, "SELECT * FROM `comments`");
+$result = mysqli_query($connection, "SELECT * FROM comments");
 
 while(($record = mysqli_fetch_assoc($result)))
 {   
