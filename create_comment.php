@@ -11,9 +11,9 @@
             echo mysqli_connect_error();
             exit();
         }
-        $login = mysqli_real_escape_string($connection, htmlspecialchars($_POST['name']));
+        $name = mysqli_real_escape_string($connection, htmlspecialchars($_POST['name']));
         $comm = $_POST['comment'];
-        if(empty($login))
+        if(empty($name))
         {
             exit('Name is required');
         }
@@ -21,7 +21,7 @@
         {
             exit('Comment is required');
         }
-        $sql = "INSERT INTO `comments` (`name`, `comment`) VALUES ('$login', '$comm')";
+        $sql = "INSERT INTO `comments` (`name`, `comment`) VALUES ('$name', '$comm')";
     
         if (!(mysqli_query($connection, $sql))) 
         {

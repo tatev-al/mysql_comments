@@ -10,7 +10,11 @@
         }
 
         $connection = mysqli_connect('127.0.0.1','root','','intern');
-
+        session_start();
+        if(isset($_SESSION["email"]))
+        {
+            header('Location: index.php');
+        }
         if($connection == false)
         {
             echo 'Connection failed.<br>';
@@ -18,8 +22,6 @@
             exit();
         }
 
-        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-        
         if(empty($_POST['email']))
         {
             exit('Email is required.');
@@ -27,20 +29,19 @@
         else if(filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) === false)
         {
             exit('Wrong email address.');
-        }
-        else
-        {
-            $email = test_input($_POST['email']);
-        }
-
-        $pass = mysqli_real_escape_string($connection, $_POST['pass']);
+        }        
+        
         if(empty($_POST['pass']))
         {
             exit('Password is required.');
         }
+
+        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+
+        $pass = $_POST['pass'];
         $pass = md5($pass);
 
-        $sql = "SELECT * FROM users WHERE email = '$email' and pass = '$pass'";
+        $sql = "SELECT id FROM users WHERE email = '$email' and pass = '$pass'";
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0)
         {
@@ -51,6 +52,7 @@
         }
         else
         {
+            $_SESSION['email'] = $_POST['email'];
             mysqli_close($connection); 
             header('Location: index.php');
         }

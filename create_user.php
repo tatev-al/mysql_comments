@@ -10,16 +10,17 @@
         }
 
         $connection = mysqli_connect('127.0.0.1','root','','intern');
-
+        session_start();
+        if(isset($_SESSION["email"]))
+        {
+            header('Location: index.php');
+        }
         if($connection == false)
         {
             echo 'Connection failed.<br>';
             echo mysqli_connect_error();
             exit();
-        }
-
-        $login = trim(mysqli_real_escape_string($connection, htmlspecialchars($_POST['name'])));
-        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+        }        
         
         if(empty($_POST['email']))
         {
@@ -29,19 +30,19 @@
         {
             exit('Wrong email address.');
         }
-        else
-        {
-            $email = test_input($_POST['email']);
-        }
-        
-        $pass = mysqli_real_escape_string($connection, $_POST['pass']);
+
         if(empty($_POST['pass']))
         {
             exit('Password is required.');
         }
+
+        $name = mysqli_real_escape_string($connection, test_input($_POST['name']));
+        $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+        
+        $pass = $_POST['pass'];
         $pass = md5($pass);
 
-        $sql = "SELECT * FROM users WHERE email = '$email' and pass = '$pass'";
+        $sql = "SELECT id FROM users WHERE email = '$email'";
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) > 0)
         {
@@ -53,13 +54,15 @@
         }
         else
         {
-            $sql = "INSERT INTO `users` (`name`, `email`, `pass`) VALUES ('$login', '$email', '$pass')";
+            $sql = "INSERT INTO `users` (`name`, `email`, `pass`) VALUES ('$name', '$email', '$pass')";
 
             if (!(mysqli_query($connection, $sql))) 
             {
-                echo "Error: " . $sql . "<br>" . mysqli_error($connection);    
+                echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+                exit();   
             } 
-
+            
+            $_SESSION['email'] = $_POST['email'];
             mysqli_close($connection); 
             header('Location: index.php');
         }
