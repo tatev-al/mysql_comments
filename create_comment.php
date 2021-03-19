@@ -2,30 +2,33 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
-
-        $connection = mysqli_connect('127.0.0.1','root','','intern');
-
+        include "db_config.php";
+        $connection = mysqli_connect($servername, $username, $password, $db_name);
+        session_start();
         if($connection == false)
         {
             echo 'Connection failed.<br>';
             echo mysqli_connect_error();
             exit();
         }
-        $name = mysqli_real_escape_string($connection, htmlspecialchars($_POST['name']));
-        $comm = $_POST['comment'];
-        if(empty($name))
+        //$name = mysqli_real_escape_string($connection, htmlspecialchars($_SESSION['name']));
+        //$tmp = isset($_SESSION['id']);
+        //$current_id = mysqli_query($connection, "SELECT id FROM users WHERE $tmp != null");;
+        $comm = mysqli_real_escape_string($connection, htmlspecialchars($_POST['comment']));
+        /*if(empty($name))
         {
             exit('Name is required');
-        }
+        }*/
         if(empty($comm))
         {
             exit('Comment is required');
         }
-        $sql = "INSERT INTO `comments` (`name`, `comment`) VALUES ('$name', '$comm')";
-    
+        $current_id = $_SESSION['id'];
+        $sql = "INSERT INTO `comments` (`user_id`, `name`, `comment`) VALUES ('$current_id', '-', '$comm')";
         if (!(mysqli_query($connection, $sql))) 
         {
-            echo "Error: " . $sql . "<br>" . mysqli_error($connection);    
+            echo "Error: " . $sql . "<br>" . mysqli_error($connection);
+            exit(); 
         } 
 
         mysqli_close($connection); 

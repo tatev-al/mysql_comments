@@ -1,6 +1,7 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
+        include "db_config.php";
         function test_input($data) 
         {
             $data = trim($data);
@@ -9,9 +10,9 @@
             return $data;
         }
 
-        $connection = mysqli_connect('127.0.0.1','root','','intern');
+        $connection = mysqli_connect($servername, $username, $password, $db_name);
         session_start();
-        if(isset($_SESSION["email"]))
+        if(isset($_SESSION['id']))
         {
             header('Location: index.php');
         }
@@ -48,21 +49,19 @@
         {
             echo 'Such user already exists.<br>';
             ?>
-            <a href="login.php">Login page</a>
+            <a href="login.php">Login page</a> <br>
             <a href="reg.php">Registration page</a>
             <?php
         }
         else
         {
             $sql = "INSERT INTO `users` (`name`, `email`, `pass`) VALUES ('$name', '$email', '$pass')";
-
             if (!(mysqli_query($connection, $sql))) 
             {
                 echo "Error: " . $sql . "<br>" . mysqli_error($connection);
                 exit();   
-            } 
-            
-            $_SESSION['email'] = $_POST['email'];
+            }
+            $_SESSION['id'] = mysqli_insert_id($connection);
             mysqli_close($connection); 
             header('Location: index.php');
         }

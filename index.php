@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(!isset($_SESSION["email"]))
+  if(!isset($_SESSION['id']))
   {
     header('Location: reg.php');
   }
@@ -18,11 +18,12 @@
 <body>
 
   <form method="POST" action="create_comment.php">
-    <label>Name: </label> <br>
-    <input type="text" name="name" placeholder="Name"> <br>
+    <!--<label>Name: </label> <br>
+    <input type="text" name="name" placeholder="Name"> <br>-->
     <label>Comment: </label> <br>
     <textarea name="comment" cols="40" rows="7"></textarea> <br>
     <input type="submit" name="done" value="Submit">
+    <a href="logout.php">Log out</a> 
   </form> 
 </body>
 
