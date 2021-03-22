@@ -11,20 +11,14 @@
             echo mysqli_connect_error();
             exit();
         }
-        //$name = mysqli_real_escape_string($connection, htmlspecialchars($_SESSION['name']));
-        //$tmp = isset($_SESSION['id']);
-        //$current_id = mysqli_query($connection, "SELECT id FROM users WHERE $tmp != null");;
         $comm = mysqli_real_escape_string($connection, htmlspecialchars($_POST['comment']));
-        /*if(empty($name))
-        {
-            exit('Name is required');
-        }*/
         if(empty($comm))
         {
             exit('Comment is required');
         }
         $current_id = $_SESSION['id'];
-        $sql = "INSERT INTO `comments` (`user_id`, `name`, `comment`) VALUES ('$current_id', '-', '$comm')";
+        $name = $_POST['name'];
+        $sql = "INSERT INTO `comments` (`user_id`, `comment`) VALUES ('$current_id', '$comm')";
         if (!(mysqli_query($connection, $sql))) 
         {
             echo "Error: " . $sql . "<br>" . mysqli_error($connection);

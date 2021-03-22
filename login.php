@@ -14,6 +14,7 @@
         <label>Password: </label> <br>
         <input type="password" name="pass" placeholder="Password"> <br>
         <input type="submit" name="done" value="Submit">
+        <a href="reg.php">Registration page</a> 
     </form>
 
 </body>

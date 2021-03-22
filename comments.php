@@ -11,19 +11,23 @@ if($connection == false)
     exit();
 }
 
-$result = mysqli_query($connection, "SELECT * FROM comments");
+$result = mysqli_query($connection, "SELECT comments.*, users.name 
+                                        FROM comments JOIN users ORDER BY created_at");
 $session_id = $_SESSION['id'];
-$name = mysqli_query($connection, "SELECT `name` FROM users WHERE users.id = $session_id");
-
-while(($record = mysqli_fetch_assoc($result)))
-{   
-    //echo 'Name: ';
-    //print_r($record['name']);
-//    echo "Name: $name";
-    echo '<br> Comment: ';
-    print_r($record['comment']);
-    echo '<hr>';
+if(mysqli_query($connection, "SELECT `name` FROM users WHERE users.id = $session_id"))
+{
+    while(($record = mysqli_fetch_assoc($result)))
+    {   
+        echo 'Name: ' . $record['name'] . '<br> Comment: ' . $record['comment'];
+        if(isset($_SESSION['id']) && $record['user_id'] == $_SESSION['id'])
+        {
+            echo '<br><a href="edit.php?id=' . $record["user_id"] . '">EDIT</a>';
+        }
+        echo '<hr>';
+    }
 }
+
 mysqli_close($connection); 
 
+//ORDER BY CREATED DATE
 ?>
