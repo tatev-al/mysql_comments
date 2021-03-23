@@ -1,3 +1,7 @@
+<?php
+include "weather.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -10,24 +10,32 @@ if($connection == false)
     echo mysqli_connect_error();
     exit();
 }
+echo 'session: ' . $_SESSION['id'];
+$result = mysqli_query($connection, "SELECT users.name,comments.comment,comments.created_at ,comments.user_id,comments.id FROM users 
+                                        INNER JOIN comments ON users.id = comments.user_id ORDER BY created_at");
 
-$result = mysqli_query($connection, "SELECT comments.*, users.name 
-                                        FROM comments JOIN users ORDER BY created_at");
-$session_id = $_SESSION['id'];
-if(mysqli_query($connection, "SELECT `name` FROM users WHERE users.id = $session_id"))
+if(isset($_SESSION['id']))
+{
+    $session_id = $_SESSION['id'];
+    if(mysqli_query($connection, "SELECT `name` FROM users WHERE users.id = $session_id"))
+    {
+        while(($record = mysqli_fetch_assoc($result)))
+        {
+            echo 'Name: ' . $record['name'] . '<br> Comment: ' . $record['comment'] . '<br>Date of creation: ' . $record['created_at'];
+            if(isset($_SESSION['id']) && $record['user_id'] == $_SESSION['id'])
+            {
+                echo '<br><a href="edit.php?id=' . $record['id'] . '">EDIT</a>';
+            }
+            echo '<hr>';
+        }
+    }
+}
+else
 {
     while(($record = mysqli_fetch_assoc($result)))
-    {   
-        echo 'Name: ' . $record['name'] . '<br> Comment: ' . $record['comment'];
-        if(isset($_SESSION['id']) && $record['user_id'] == $_SESSION['id'])
-        {
-            echo '<br><a href="edit.php?id=' . $record["user_id"] . '">EDIT</a>';
-        }
-        echo '<hr>';
+    {
+        echo 'Name: ' . $record['name'] . '<br> Comment: ' . $record['comment'] . '<br>Date of creation: ' . $record['created_at'] . '<hr>';
     }
 }
 
 mysqli_close($connection); 
-
-//ORDER BY CREATED DATE
-?>

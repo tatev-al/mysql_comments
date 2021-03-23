@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['id']))
+    {
+        header('Location: reg.php');
+    }
 
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
@@ -17,7 +22,6 @@
             exit('Comment is required');
         }
         $current_id = $_SESSION['id'];
-        $name = $_POST['name'];
         $sql = "INSERT INTO `comments` (`user_id`, `comment`) VALUES ('$current_id', '$comm')";
         if (!(mysqli_query($connection, $sql))) 
         {

@@ -1,3 +1,7 @@
+<?php
+include "weather.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +21,7 @@
         <label>Password: </label> <br>
         <input type="password" name="pass" placeholder="Password"> <br>
         <input type="submit" name="done" value="Submit">
+        <a href="login.php">Log in</a> 
     </form>
 
 </body>
