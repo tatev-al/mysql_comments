@@ -1,5 +1,6 @@
 <?php
-
+include "weather.php";
+get_weather();
 include "db_config.php";
 
 $connection = mysqli_connect($servername, $username, $password, $db_name);
@@ -10,7 +11,7 @@ if($connection == false)
     echo mysqli_connect_error();
     exit();
 }
-echo 'session: ' . $_SESSION['id'];
+
 $result = mysqli_query($connection, "SELECT users.name,comments.comment,comments.created_at ,comments.user_id,comments.id FROM users 
                                         INNER JOIN comments ON users.id = comments.user_id ORDER BY created_at");
 

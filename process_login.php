@@ -1,6 +1,11 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] == "POST")
-    {
+    {       
+        session_start();
+        if(isset($_SESSION["id"]))
+        {
+            header('Location: index.php');
+        }
         include "db_config.php";
         function test_input($data) 
         {
@@ -11,11 +16,7 @@
         }
 
         $connection = mysqli_connect($servername, $username, $password, $db_name);
-        session_start();
-        if(isset($_SESSION["id"]))
-        {
-            header('Location: index.php');
-        }
+
         if($connection == false)
         {
             echo 'Connection failed.<br>';
@@ -53,7 +54,8 @@
         }
         else
         {
-            $_SESSION['id'] = mysqli_insert_id($connection);
+            $record = mysqli_fetch_assoc($result);
+            $_SESSION['id'] = $record['id'];
             mysqli_close($connection); 
             header('Location: index.php');
         }

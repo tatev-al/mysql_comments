@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Мар 23 2021 г., 08:35
+-- Время создания: Мар 24 2021 г., 08:38
 -- Версия сервера: 10.4.17-MariaDB
 -- Версия PHP: 8.0.2
 
@@ -40,6 +40,11 @@ CREATE TABLE `comments` (
 --
 
 INSERT INTO `comments` (`id`, `user_id`, `name`, `comment`, `created_at`) VALUES
+(78, 29, '', 'new user anushasfsdf\r\nold user', '2021-03-23 13:03:39'),
+(76, 19, '', 'new nina', '2021-03-23 12:25:15'),
+(75, 27, '', 'many many comments and much more', '2021-03-23 13:07:04'),
+(74, 26, '', 'mane mane', '2021-03-23 11:59:50'),
+(73, 27, '', 'new edition comment', '2021-03-23 11:15:38'),
 (72, 28, '', 'armineeeee', '2021-03-23 07:01:23'),
 (71, 0, '', 'narine 4', '2021-03-23 06:46:34'),
 (70, 0, '', 'narine 3', '2021-03-23 06:42:52'),
@@ -63,7 +68,10 @@ INSERT INTO `comments` (`id`, `user_id`, `name`, `comment`, `created_at`) VALUES
 (42, 22, 'Aram', 'hi', '2021-03-22 08:09:47'),
 (43, 22, 'Aram', 'hi', '2021-03-22 08:09:47'),
 (45, 23, 'Please', 'pls work', '2021-03-22 08:04:18'),
-(54, 24, 'Please', 'this is amanda', '2021-03-22 08:04:27');
+(80, 30, '', 'second lucky comment', '2021-03-23 13:05:29'),
+(79, 30, '', 'new lucky comment\r\n(edited)', '2021-03-23 13:05:54'),
+(54, 24, 'Please', 'this is amanda', '2021-03-22 08:04:27'),
+(81, 27, '', 'narine comment after edit lucky', '2021-03-23 13:06:46');
 
 -- --------------------------------------------------------
 
@@ -107,7 +115,29 @@ INSERT INTO `users` (`id`, `name`, `email`, `pass`) VALUES
 (25, 'manuk', 'man@m.m', '202cb962ac59075b964b07152d234b70'),
 (26, 'mane', 'mane@m.m', '202cb962ac59075b964b07152d234b70'),
 (27, 'narine', 'narine@n.n', '202cb962ac59075b964b07152d234b70'),
-(28, 'armine', 'armine@a.a', '202cb962ac59075b964b07152d234b70');
+(28, 'armine', 'armine@a.a', '202cb962ac59075b964b07152d234b70'),
+(29, 'anush', 'anush@an.an', '202cb962ac59075b964b07152d234b70'),
+(30, 'Lucky', 'lucky@l.l', '827ccb0eea8a706c4c34a16891f84e7b');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `weather`
+--
+
+CREATE TABLE `weather` (
+  `id` int(11) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `temperature` int(3) DEFAULT NULL,
+  `last_update` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+--
+-- Дамп данных таблицы `weather`
+--
+
+INSERT INTO `weather` (`id`, `city`, `temperature`, `last_update`) VALUES
+(1, 'Yerevan', 15, '2021-03-24 11:31:15');
 
 --
 -- Индексы сохранённых таблиц
@@ -126,6 +156,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `weather`
+--
+ALTER TABLE `weather`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -133,13 +169,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT для таблицы `weather`
+--
+ALTER TABLE `weather`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

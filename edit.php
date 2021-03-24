@@ -16,12 +16,8 @@ if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']))
         echo mysqli_connect_error();
         exit();
     }
-    if(!isset($_GET['id']))
-    {
-        header('Location: login.php');
-    }
     $comment_id = $_GET['id'];
-    $result = mysqli_query($connection, "SELECT `comment` FROM `comments` WHERE comments.id = $comment_id AND user_id = ". $_SESSION['id']);
+    $result = mysqli_query($connection, "SELECT id, comment FROM comments WHERE comments.id = '$comment_id' AND user_id = ". $_SESSION['id']);
     $record = mysqli_fetch_assoc($result);    
     if (!$record)
     {
@@ -31,7 +27,8 @@ if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id']))
     ?>
 
     <form method="POST" action="edit_comment.php">
-        <label>Comment: </label> <br>
+        <label>Edit your comment: </label> <br>
+        <input type="hidden" name="id" value="<?= $comment_id ?>">
         <textarea name="comment" cols="40" rows="7"><?= $record['comment']; ?></textarea> <br>
         <input type="submit" name="done" value="Submit">
     </form>

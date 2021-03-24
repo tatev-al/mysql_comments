@@ -1,5 +1,6 @@
 <?php
 include "weather.php";
+get_weather();
 ?>
 
 <!DOCTYPE html>
