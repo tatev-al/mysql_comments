@@ -7,14 +7,12 @@
 
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
-        include "db_config.php";
+        require "db_config.php";
         $connection = mysqli_connect($servername, $username, $password, $db_name);
         session_start();
         if($connection == false)
         {
-            echo 'Connection failed.<br>';
-            echo mysqli_connect_error();
-            exit();
+            die("Connection failed: " . mysqli_connect_error());
         }
         $comm = mysqli_real_escape_string($connection, htmlspecialchars($_POST['comment']));
         if(empty($comm))

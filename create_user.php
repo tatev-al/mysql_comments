@@ -1,7 +1,7 @@
 <?php
     if($_SERVER['REQUEST_METHOD'] == "POST")
     {
-        include "db_config.php";
+        require "db_config.php";
         function test_input($data) 
         {
             $data = trim($data);
@@ -18,9 +18,7 @@
         }
         if($connection == false)
         {
-            echo 'Connection failed.<br>';
-            echo mysqli_connect_error();
-            exit();
+            die("Connection failed: " . mysqli_connect_error());
         }        
         
         if(empty($_POST['email']))

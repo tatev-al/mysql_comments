@@ -6,7 +6,7 @@
         {
             header('Location: index.php');
         }
-        include "db_config.php";
+        require "db_config.php";
         function test_input($data) 
         {
             $data = trim($data);
@@ -16,14 +16,10 @@
         }
 
         $connection = mysqli_connect($servername, $username, $password, $db_name);
-
         if($connection == false)
         {
-            echo 'Connection failed.<br>';
-            echo mysqli_connect_error();
-            exit();
+            die("Connection failed: " . mysqli_connect_error());
         }
-
         if(empty($_POST['email']))
         {
             exit('Email is required.');
@@ -32,7 +28,6 @@
         {
             exit('Wrong email address.');
         }        
-        
         if(empty($_POST['pass']))
         {
             exit('Password is required.');
