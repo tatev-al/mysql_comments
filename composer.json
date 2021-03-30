@@ -1,0 +1,13 @@
+{
+    "name": "aleksanyan_pc/mysql_comments",
+    "description": "Registration Form",
+    "authors": [
+        {
+            "name": "tatev-al",
+            "email": "tatevik.aleksanyan19@gmail.com"
+        }
+    ],
+    "require": {
+        "robmorgan/phinx": "^0.12.6"
+    }
+}
